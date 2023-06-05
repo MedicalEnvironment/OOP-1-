@@ -1,0 +1,3 @@
+/Users/gasoline/CLionProjects/AudioPLayer/cmake-build-debug/CMakeFiles/AudioPLayer.dir
+/Users/gasoline/CLionProjects/AudioPLayer/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/gasoline/CLionProjects/AudioPLayer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
