@@ -68,13 +68,19 @@ public:
 
     void next() {
         if (isPlaying) {
-            currentTrackIndex = rand() % tracks.size();
+            if (currentTrackIndex < tracks.size() - 1) {
+                currentTrackIndex++;
+            } else {
+                currentTrackIndex = 0; // Reset to the first track
+            }
+
             std::cout << "Skipping to next track: " << tracks[currentTrackIndex].getName() << std::endl;
             std::cout << "Creation date: " << tracks[currentTrackIndex].getCreationDate().tm_year + 1900 << "-" << tracks[currentTrackIndex].getCreationDate().tm_mon + 1 << "-" << tracks[currentTrackIndex].getCreationDate().tm_mday << std::endl;
             std::cout << "Duration: " << tracks[currentTrackIndex].getDuration() << " seconds" << std::endl;
             isPaused = false;
         }
     }
+
 
     void stop() {
         if (isPlaying) {
@@ -104,9 +110,19 @@ int main() {
 
     // Create a player and add tracks to it
     Player player;
-    player.addTrack(track1);
-    player.addTrack(track2);
-    player.addTrack(track3);
+
+    // Define a list of tracks
+    std::vector<Track> tracks = {track1, track2, track3};
+
+    // Loop through the tracks and add them to the player
+    for (const auto& track : tracks) {
+        player.addTrack(track);
+    }
+
+
+    //player.addTrack(track1);
+    //player.addTrack(track2);
+    //player.addTrack(track3);
 
     std::string command;
     std::string trackName;
