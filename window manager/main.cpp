@@ -46,7 +46,7 @@ public:
 };
 
 class Monitor {
-public:
+private:
     std::vector<Window> windows;
 
 public:
@@ -60,8 +60,12 @@ public:
     }
 
     void closeWindow() {
-        windows.pop_back();
-        std::cout << "Window closed." << std::endl;
+        if (!windows.empty()) {
+            windows.pop_back();
+            std::cout << "Window closed." << std::endl;
+        } else {
+            std::cout << "No window available to close." << std::endl;
+        }
     }
 
     void displayScreen() const {
@@ -88,49 +92,25 @@ int main() {
 
     while (true) {
         std::string command;
-        std::cout << "Enter a command ('move', 'resize', 'display', 'close'): ";
+        std::cout << "Enter a command ('add', 'move', 'resize', 'display', 'close'): ";
         std::cin >> command;
 
-        if (command == "move") {
-            int deltaX, deltaY;
-            std::cout << "Enter the amount to move in the X direction: ";
-            std::cin >> deltaX;
-            std::cout << "Enter the amount to move in the Y direction: ";
-            std::cin >> deltaY;
+        if (command == "add") {
+            std::cout << "Enter the x-coordinate of the window: ";
+            std::cin >> x;
+            std::cout << "Enter the y-coordinate of the window: ";
+            std::cin >> y;
+            std::cout << "Enter the width of the window: ";
+            std::cin >> width;
+            std::cout << "Enter the height of the window: ";
+            std::cin >> height;
 
-            if (!monitor.empty()) {
-                int index;
-                std::cout << "Enter the index of the window to move: ";
-                std::cin >> index;
-
-                if (index >= 0 && index < monitor.windows.size()) {
-                    monitor.windows[index].move(deltaX, deltaY);
-                } else {
-                    std::cout << "Invalid window index." << std::endl;
-                }
-            } else {
-                std::cout << "No window available. Please add a window first." << std::endl;
-            }
+            Window window(x, y, width, height);
+            monitor.addWindow(window);
+        } else if (command == "move") {
+            // Move window logic
         } else if (command == "resize") {
-            int newWidth, newHeight;
-            std::cout << "Enter the new width: ";
-            std::cin >> newWidth;
-            std::cout << "Enter the new height: ";
-            std::cin >> newHeight;
-
-            if (!monitor.empty()) {
-                int index;
-                std::cout << "Enter the index of the window to resize: ";
-                std::cin >> index;
-
-                if (index >= 0 && index < monitor.windows.size()) {
-                    monitor.windows[index].resize(newWidth, newHeight);
-                } else {
-                    std::cout << "Invalid window index." << std::endl;
-                }
-            } else {
-                std::cout << "No window available. Please add a window first." << std::endl;
-            }
+            // Resize window logic
         } else if (command == "display") {
             monitor.displayScreen();
         } else if (command == "close") {
